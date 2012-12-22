@@ -1087,6 +1087,24 @@ def upstart_ensure(name):
 	else:
 		sudo("service %s restart" % name)
 
+
+def systemd_enable(name):
+	"Enable a systemd service."
+	sudo("systemctl enable {0}".format(name))
+	sudo("systemctl start {0}".format(name))
+
+
+def systemd_disable(name):
+	"Disable a systemd service."
+	sudo("systemctl disable {0}".format(name))
+	sudo("systemctl stop {0}".format(name))
+
+
+def systemd_ensure(name):
+	"Ensure a systemd service is enabled and running."
+	systemd_enable(name)
+
+
 def system_uuid_alias_add():
 	"""Adds system UUID alias to /etc/hosts.
 	Some tools/processes rely/want the hostname as an alias in
